@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from .forms import CommentForm, PostForm
-from .models import Comment, Post
+from .models import Category, Comment, Post
 
 
 class PostListView(ListView):
@@ -58,3 +58,20 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return f"{self.target_post.get_absolute_url()}#comentarios"
+
+
+class CategoryListView(ListView):
+    model = Category
+    context_object_name = "categories"
+
+
+class CategoryDetailView(PostListView):
+    def dispatch(self, request, *args, **kwargs):
+        self.category = get_object_or_404(Category, pk=kwargs["pk"])
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.category.posts.all()
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(category=self.category, **kwargs)
