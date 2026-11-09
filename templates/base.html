@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Diário de Laboratório{% endblock %}</title>
+  <title>{% block title %}Carneiro Carros{% endblock %}</title>
   <style>
     * { box-sizing:border-box }
     body { margin:0; background:#f3f6f8; color:#162938; font:16px/1.6 system-ui,sans-serif }
@@ -17,7 +17,7 @@
     main { padding-block:30px 55px }
     .hero { margin-bottom:23px }
     h1,h2,h3 { line-height:1.2 }
-    h1 { font-size:clamp(1.8rem,4vw,2.65rem); margin:0 0 10px }
+    h1 { font-size:2.1rem; font-size:clamp(1.8rem,4vw,2.65rem); margin:0 0 10px }
     h2 { margin:0 0 7px }
     p { margin:0 0 12px }
     a { color:#006763; text-underline-offset:3px }
@@ -25,9 +25,15 @@
     .muted, time { color:#536672; font-size:.9rem }
     .label { font-size:.78rem; letter-spacing:.10em; text-transform:uppercase; color:#006763; font-weight:800 }
     .button, button { display:inline-block; border:0; border-radius:7px; background:#006763; color:white; font:inherit; font-weight:700; padding:7px 14px; text-decoration:none; cursor:pointer }
+    button { width:13rem; min-height:2.45rem; line-height:1.3 }
+    nav button { width:4.4rem }
     .danger { background:#9c2939 }
     .actions { margin-top:16px }
     input,textarea,select { display:block; width:100%; padding:8px; border:1px solid #899da6; border-radius:6px; font:inherit }
+    input[type="hidden"] { display:none !important }
+    textarea[rows="7"] { min-height:9rem }
+    textarea[rows="3"] { min-height:4.5rem }
+    select[multiple] { min-height:5.5rem; background:white }
     label { font-weight:650 }
     .errorlist { color:#9c2939 }
     .content img { max-width:100%; height:auto }
@@ -39,7 +45,7 @@
 <body>
   <header>
     <div class="wrap">
-      <a class="brand" href="{% url 'blog:post_list' %}">Diário de Laboratório</a>
+      <a class="brand" href="{% url 'blog:post_list' %}">Carneiro Carros</a>
       <nav aria-label="Navegação principal">
         <a href="{% url 'blog:post_list' %}">Posts</a>
         <a href="{% url 'blog:category_list' %}">Categorias</a>
