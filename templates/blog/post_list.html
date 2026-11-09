@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero">
+  <p class="label">Publicações</p>
+  <h1>Todos os posts</h1>
+  <p class="muted">Selecione uma publicação para ler o conteúdo completo.</p>
+</div>
+{% for post in posts %}
+  <article class="panel">
+    <h2><a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></h2>
+    <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"d/m/Y H:i" }}</time>
+  </article>
+{% empty %}
+  <p class="panel">Ainda não há publicações.</p>
+{% endfor %}
+{% endblock %}

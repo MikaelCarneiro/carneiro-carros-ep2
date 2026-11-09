@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Diário de Laboratório{% endblock %}</title>
+  <style>
+    * { box-sizing:border-box }
+    body { margin:0; background:#f3f6f8; color:#162938; font:16px/1.6 system-ui,sans-serif }
+    .wrap { max-width:960px; margin:auto; padding-inline:26px }
+    header { background:#102936; color:white; padding:17px 0 }
+    header .wrap, nav, .actions { display:flex; flex-wrap:wrap; align-items:center; gap:16px }
+    header .wrap { justify-content:space-between }
+    header a { color:white; text-decoration:none }
+    header a:hover { text-decoration:underline }
+    .brand { font-weight:800; font-size:1.1rem }
+    main { padding-block:30px 55px }
+    .hero { margin-bottom:23px }
+    h1,h2,h3 { line-height:1.2 }
+    h1 { font-size:clamp(1.8rem,4vw,2.65rem); margin:0 0 10px }
+    h2 { margin:0 0 7px }
+    p { margin:0 0 12px }
+    a { color:#006763; text-underline-offset:3px }
+    .panel { background:white; border:1px solid #d9e3e8; border-radius:12px; padding:20px 23px; margin-bottom:14px }
+    .muted, time { color:#536672; font-size:.9rem }
+    .label { font-size:.78rem; letter-spacing:.10em; text-transform:uppercase; color:#006763; font-weight:800 }
+    .button, button { display:inline-block; border:0; border-radius:7px; background:#006763; color:white; font:inherit; font-weight:700; padding:7px 14px; text-decoration:none; cursor:pointer }
+    .danger { background:#9c2939 }
+    .actions { margin-top:16px }
+    input,textarea,select { display:block; width:100%; padding:8px; border:1px solid #899da6; border-radius:6px; font:inherit }
+    label { font-weight:650 }
+    .errorlist { color:#9c2939 }
+    .content img { max-width:100%; height:auto }
+    footer { border-top:1px solid #d9e3e8; padding-block:16px; color:#536672 }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="{% url 'blog:post_list' %}">Diário de Laboratório</a>
+      <nav aria-label="Navegação principal">
+        <a href="{% url 'blog:post_list' %}">Posts</a>
+        {% if perms.blog.add_post %}<a href="{% url 'blog:post_create' %}">Novo post</a>{% endif %}
+        {% if user.is_staff %}<a href="{% url 'admin:index' %}">Administração</a>{% endif %}
+        {% if user.is_authenticated %}
+          <form action="{% url 'logout' %}" method="post">{% csrf_token %}<button type="submit">Sair</button></form>
+        {% else %}
+          <a href="{% url 'login' %}">Entrar</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">{% block content %}{% endblock %}</main>
+  <footer><div class="wrap">PMR3304 · Aplicação Django</div></footer>
+</body>
+</html>

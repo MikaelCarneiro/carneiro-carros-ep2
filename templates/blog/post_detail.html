@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<article class="panel">
+  <div class="hero">
+    <p class="label">Publicação</p>
+    <h1>{{ post.title }}</h1>
+    <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"d/m/Y H:i" }}</time>
+  </div>
+  <div class="content">{{ post.content|safe }}</div>
+  <div class="actions">
+    <a href="{% url 'blog:post_list' %}">Voltar aos posts</a>
+    {% if perms.blog.change_post %}<a href="{% url 'blog:post_update' post.pk %}">Editar</a>{% endif %}
+    {% if perms.blog.delete_post %}<a href="{% url 'blog:post_delete' post.pk %}">Excluir</a>{% endif %}
+  </div>
+</article>
+{% endblock %}
