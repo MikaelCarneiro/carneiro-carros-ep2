@@ -2,8 +2,14 @@
 {% block content %}
 <div class="hero">
   <p class="label">Publicações</p>
-  <h1>Todos os posts</h1>
-  <p class="muted">Selecione uma publicação para ler o conteúdo completo.</p>
+  {% if category %}
+    <h1>Categoria: {{ category.name }}</h1>
+    <p>{{ category.description }}</p>
+    <a href="{% url 'blog:category_list' %}">Ver todas as categorias</a>
+  {% else %}
+    <h1>Todos os posts</h1>
+    <p class="muted">Selecione uma publicação para ler o conteúdo completo.</p>
+  {% endif %}
 </div>
 {% for post in posts %}
   <article class="panel">

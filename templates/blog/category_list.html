@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Categorias{% endblock %}
+{% block content %}
+<div class="hero"><p class="label">Navegação</p><h1>Categorias</h1></div>
+{% for category in categories %}
+  <article class="panel">
+    <h2><a href="{% url 'blog:category_detail' category.pk %}">{{ category.name }}</a></h2>
+    <p>{{ category.description }}</p>
+  </article>
+{% empty %}
+  <p class="panel">Ainda não há categorias.</p>
+{% endfor %}
+{% endblock %}
