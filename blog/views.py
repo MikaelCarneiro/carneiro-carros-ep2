@@ -45,16 +45,16 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     form_class = CommentForm
 
     def dispatch(self, request, *args, **kwargs):
-        self.post = get_object_or_404(Post, pk=kwargs["pk"])
+        self.target_post = get_object_or_404(Post, pk=kwargs["pk"])
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        return super().get_context_data(post=self.post, **kwargs)
+        return super().get_context_data(post=self.target_post, **kwargs)
 
     def form_valid(self, form):
-        form.instance.post = self.post
+        form.instance.post = self.target_post
         form.instance.author = self.request.user
         return super().form_valid(form)
 
     def get_success_url(self):
-        return f"{self.post.get_absolute_url()}#comentarios"
+        return f"{self.target_post.get_absolute_url()}#comentarios"
