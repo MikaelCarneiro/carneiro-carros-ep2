@@ -1,9 +1,10 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from .forms import PostForm
-from .models import Post
+from .forms import CommentForm, PostForm
+from .models import Comment, Post
 
 
 class PostListView(ListView):
@@ -13,6 +14,12 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comments"] = self.object.comments.select_related("author")
+        context["comment_form"] = CommentForm()
+        return context
 
 
 class PostCreateView(PermissionRequiredMixin, CreateView):
@@ -31,3 +38,23 @@ class PostDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = "blog.delete_post"
     model = Post
     success_url = reverse_lazy("blog:post_list")
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.post = get_object_or_404(Post, pk=kwargs["pk"])
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(post=self.post, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.post = self.post
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return f"{self.post.get_absolute_url()}#comentarios"
