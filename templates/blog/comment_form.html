@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Novo comentário{% endblock %}
+{% block content %}
+<div class="hero">
+  <p class="label">Comentários</p>
+  <h1>Novo comentário</h1>
+  <p>Publicação: <a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></p>
+</div>
+<form method="post" class="panel">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div class="actions">
+    <button type="submit">Publicar comentário</button>
+    <a href="{% url 'blog:post_detail' post.pk %}#comentarios">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

@@ -14,4 +14,26 @@
     {% if perms.blog.delete_post %}<a href="{% url 'blog:post_delete' post.pk %}">Excluir</a>{% endif %}
   </div>
 </article>
+<section class="panel" id="comentarios" aria-labelledby="titulo-comentarios">
+  <h2 id="titulo-comentarios">Comentários</h2>
+  {% for comment in comments %}
+    <article class="panel">
+      <p><strong>{{ comment.author.get_username }}</strong> ·
+        <time datetime="{{ comment.published_at|date:'c' }}">{{ comment.published_at|date:"d/m/Y H:i" }}</time></p>
+      {{ comment.text|linebreaks }}
+    </article>
+  {% empty %}
+    <p class="muted">Ainda não há comentários.</p>
+  {% endfor %}
+  {% if user.is_authenticated %}
+    <p><a href="{% url 'blog:comment_create' post.pk %}">Abrir página de comentário</a></p>
+    <form action="{% url 'blog:comment_create' post.pk %}" method="post">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <button type="submit">Publicar comentário</button>
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}?next={% url 'blog:comment_create' post.pk %}">Entrar para comentar</a>
+  {% endif %}
+</section>
 {% endblock %}
