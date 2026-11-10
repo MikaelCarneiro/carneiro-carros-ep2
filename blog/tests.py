@@ -69,7 +69,10 @@ class BlogTests(TestCase):
         self.assertLess(rendered.index("&lt;script&gt;"), rendered.index("Mensagem anterior"))
 
     def test_category_reuses_list_and_filters_posts(self):
-        self.assertContains(self.client.get(url("category_list")), "Sedãs")
+        categories = self.client.get(url("category_list"))
+        self.assertContains(categories, url("category_detail", self.category.pk))
+        self.assertNotContains(categories, self.post.get_absolute_url())
+        self.assertNotContains(categories, "Todos os carros")
         response = self.client.get(url("category_detail", self.category.pk))
         self.assertTemplateUsed(response, "blog/post_list.html")
         self.assertContains(response, self.post.title)
@@ -79,12 +82,14 @@ class BlogTests(TestCase):
     def test_navigation_uses_the_same_posts_and_photos(self):
         photo = PostPhoto.objects.create(post=self.post, url="https://example.com/civic.jpg", credit="Fotógrafo")
 
-        for view_name in ("post_list", "selection", "about", "category_list"):
+        self.assertRedirects(self.client.get(url("selection")), url("post_list"), status_code=301)
+        for view_name in ("post_list", "about"):
             with self.subTest(view=view_name):
                 response = self.client.get(url(view_name))
                 self.assertContains(response, self.post.get_absolute_url())
                 self.assertContains(response, self.other.get_absolute_url())
                 self.assertContains(response, photo.url, count=1)
+                self.assertNotContains(response, url("selection"))
 
         self.assertContains(self.client.get(self.post.get_absolute_url()), photo.url, count=1)
         category = self.client.get(url("category_detail", self.category.pk))

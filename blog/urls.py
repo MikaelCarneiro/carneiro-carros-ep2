@@ -1,11 +1,12 @@
 from django.urls import path
+from django.views.generic import RedirectView
 
 from . import views
 
 app_name = "blog"
 urlpatterns = [
     path("", views.PostListView.as_view(), name="post_list"),
-    path("selecao/", views.PostListView.as_view(template_name="blog/selection.html"), name="selection"),
+    path("selecao/", RedirectView.as_view(pattern_name="blog:post_list", permanent=True), name="selection"),
     path("sobre/", views.PostListView.as_view(template_name="blog/about.html"), name="about"),
     path("posts/novo/", views.PostCreateView.as_view(), name="post_create"),
     path("posts/<int:pk>/", views.PostDetailView.as_view(), name="post_detail"),

@@ -65,9 +65,6 @@ class CategoryListView(ListView):
     model = Category
     context_object_name = "categories"
 
-    def get_context_data(self, **kwargs):
-        return super().get_context_data(posts=Post.objects.select_related("photo"), **kwargs)
-
 
 class CategoryDetailView(PostListView):
     def dispatch(self, request, *args, **kwargs):

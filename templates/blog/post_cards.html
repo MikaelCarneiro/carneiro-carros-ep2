@@ -1,6 +1,6 @@
 <div class="car-grid">
   {% for post in posts %}
-    <article class="panel">
+    <article class="panel post-card">
       {% include "blog/post_photo.html" %}
       <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
       <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"d/m/Y H:i" }}</time>
