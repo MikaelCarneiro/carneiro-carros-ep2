@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Sobre | Carneiro Carros{% endblock %}
+{% block content %}
+<div class="hero">
+  <p class="label">O projeto</p>
+  <h1>Sobre o Carneiro Carros</h1>
+  <p>Sou Mikael Carneiro, estudante de engenharia. Gosto de pesquisar os carros que marcaram a minha infância e entender o que diferencia cada modelo.</p>
+</div>
+<section class="panel">
+  <h2>Do portfólio ao blog</h2>
+  <p>O Carneiro Carros começou como um portfólio de fichas técnicas e observações sobre carros dos anos 2000. Nesta segunda etapa, o projeto ganhou um blog com publicações, categorias e comentários.</p>
+  <div class="actions">
+    <a class="button" href="{% url 'blog:selection' %}">Ver seleção de carros</a>
+    <a href="{% url 'blog:post_list' %}">Ler as publicações</a>
+  </div>
+</section>
+{% endblock %}

@@ -1,10 +1,13 @@
 from django.urls import path
+from django.views.generic import TemplateView
 
 from . import views
 
 app_name = "blog"
 urlpatterns = [
     path("", views.PostListView.as_view(), name="post_list"),
+    path("selecao/", TemplateView.as_view(template_name="blog/selection.html"), name="selection"),
+    path("sobre/", TemplateView.as_view(template_name="blog/about.html"), name="about"),
     path("posts/novo/", views.PostCreateView.as_view(), name="post_create"),
     path("posts/<int:pk>/", views.PostDetailView.as_view(), name="post_detail"),
     path("posts/<int:pk>/editar/", views.PostUpdateView.as_view(), name="post_update"),

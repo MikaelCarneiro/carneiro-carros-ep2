@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Seleção de carros | Carneiro Carros{% endblock %}
+{% block content %}
+<div class="hero">
+  <p class="label">Portfólio automotivo</p>
+  <h1>Minha seleção de carros</h1>
+  <p>Três modelos de 2005 que marcaram minha infância: o Civic, o Corolla e o Golf. Os dois sedãs e o hatch mostram propostas diferentes entre os carros vendidos no Brasil.</p>
+</div>
+<div class="car-grid">
+  <article class="panel">
+    <figure>
+      <img src="https://gitlab.uspdigital.usp.br/14599342/carneiro-carros/-/raw/2167179d144e1ab7a8544dcfa91bed35703765e4/static/images/civic-br-frente.jpg" alt="Vista frontal do Honda Civic LX 2005" referrerpolicy="no-referrer">
+      <figcaption class="muted">Foto: Emerson Santos / Go Garage</figcaption>
+    </figure>
+    <p class="label">Sedã · 2005</p>
+    <h2>Honda Civic</h2>
+    <p>LX 1.7 automático, 115 cv.</p>
+    <p>O câmbio de quatro marchas e a suspensão traseira independente se destacam nesta seleção.</p>
+  </article>
+  <article class="panel">
+    <figure>
+      <img src="https://gitlab.uspdigital.usp.br/14599342/carneiro-carros/-/raw/2167179d144e1ab7a8544dcfa91bed35703765e4/static/images/corolla-br-frente.jpg" alt="Vista frontal do Toyota Corolla XEi 2005" referrerpolicy="no-referrer">
+      <figcaption class="muted">Foto: Carro Repasse</figcaption>
+    </figure>
+    <p class="label">Sedã · 2005</p>
+    <h2>Toyota Corolla</h2>
+    <p>XEi 1.8 manual, 136 cv.</p>
+    <p>Um sedã de proposta familiar, com atenção ao espaço interno e ao conforto.</p>
+  </article>
+  <article class="panel">
+    <figure>
+      <img src="https://gitlab.uspdigital.usp.br/14599342/carneiro-carros/-/raw/2167179d144e1ab7a8544dcfa91bed35703765e4/static/images/golf-br-frente.jpg" alt="Vista frontal do Volkswagen Golf 2005" referrerpolicy="no-referrer">
+      <figcaption class="muted">Foto: Sul MF Multimarcas / Kleber Carros</figcaption>
+    </figure>
+    <p class="label">Hatch · 2005</p>
+    <h2>Volkswagen Golf</h2>
+    <p>1.6 manual, 101 cv.</p>
+    <p>O hatch da seleção, com dimensões mais compactas que as dos dois sedãs.</p>
+  </article>
+</div>
+<p class="muted">Seleção, dados e créditos do <a href="https://gitlab.uspdigital.usp.br/14599342/carneiro-carros/-/tree/main/content/carros">portfólio original do Carneiro Carros</a>.</p>
+{% endblock %}

@@ -37,6 +37,9 @@
     label { font-weight:650 }
     .errorlist { color:#9c2939 }
     .content img { max-width:100%; height:auto }
+    .car-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr)); gap:14px }
+    .car-grid figure { margin:0 0 12px }
+    .car-grid img { display:block; width:100%; aspect-ratio:3 / 2; object-fit:cover; border-radius:8px; background:#e3edf0 }
     .chips { display:flex; flex-wrap:wrap; gap:7px; padding:0; list-style:none }
     .chips a { display:inline-block; padding:3px 11px; background:#e3f2f0; border-radius:18px; font-weight:600 }
     footer { border-top:1px solid #d9e3e8; padding-block:16px; color:#536672 }
@@ -49,6 +52,8 @@
       <nav aria-label="Navegação principal">
         <a href="{% url 'blog:post_list' %}">Posts</a>
         <a href="{% url 'blog:category_list' %}">Categorias</a>
+        <a href="{% url 'blog:selection' %}">Seleção de carros</a>
+        <a href="{% url 'blog:about' %}">Sobre</a>
         {% if perms.blog.add_post %}<a href="{% url 'blog:post_create' %}">Novo post</a>{% endif %}
         {% if user.is_staff %}<a href="{% url 'admin:index' %}">Administração</a>{% endif %}
         {% if user.is_authenticated %}
