@@ -1,0 +1,11 @@
+{% with photo=post.photo %}
+  {% if photo %}
+    <figure class="post-photo">
+      <img src="{{ photo.url }}" alt="{{ post.title }}" referrerpolicy="no-referrer">
+      <figcaption class="muted">
+        Foto: {% if photo.source_url %}<a href="{{ photo.source_url }}">{{ photo.credit }}</a>{% else %}{{ photo.credit }}{% endif %}
+        {% if photo.license_url %} · <a href="{{ photo.license_url }}">Licença</a>{% endif %}
+      </figcaption>
+    </figure>
+  {% endif %}
+{% endwith %}

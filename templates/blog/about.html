@@ -14,4 +14,8 @@
     <a href="{% url 'blog:post_list' %}">Ler as publicações</a>
   </div>
 </section>
+<section aria-labelledby="fichas">
+  <h2 id="fichas">Explore as fichas</h2>
+  {% include "blog/post_cards.html" %}
+</section>
 {% endblock %}

@@ -36,6 +36,18 @@ class Post(models.Model):
         return reverse("blog:post_detail", kwargs={"pk": self.pk})
 
 
+class PostPhoto(models.Model):
+    post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name="photo")
+    url = models.URLField("endereço da foto", max_length=400)
+    credit = models.CharField("crédito", max_length=180)
+    source_url = models.URLField("fonte da foto", max_length=400, blank=True)
+    license_url = models.URLField("licença da foto", max_length=400, blank=True)
+
+    class Meta:
+        verbose_name = "foto do post"
+        verbose_name_plural = "fotos do post"
+
+
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

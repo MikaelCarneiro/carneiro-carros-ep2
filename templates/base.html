@@ -39,7 +39,10 @@
     .content img { max-width:100%; height:auto }
     .car-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr)); gap:14px }
     .car-grid figure { margin:0 0 12px }
-    .car-grid img { display:block; width:100%; aspect-ratio:3 / 2; object-fit:cover; border-radius:8px; background:#e3edf0 }
+    .car-grid img, .post-photo img { display:block; width:100%; object-fit:contain; border-radius:8px; background:#e3edf0 }
+    .car-grid img { aspect-ratio:3 / 2 }
+    .post-photo { margin:0 0 16px }
+    .post-photo img { max-height:460px }
     .chips { display:flex; flex-wrap:wrap; gap:7px; padding:0; list-style:none }
     .chips a { display:inline-block; padding:3px 11px; background:#e3f2f0; border-radius:18px; font-weight:600 }
     footer { border-top:1px solid #d9e3e8; padding-block:16px; color:#536672 }

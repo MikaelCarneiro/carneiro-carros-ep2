@@ -10,6 +10,7 @@ from .models import Category, Comment, Post
 class PostListView(ListView):
     model = Post
     context_object_name = "posts"
+    queryset = Post.objects.select_related("photo")
 
 
 class PostDetailView(DetailView):
@@ -64,6 +65,9 @@ class CategoryListView(ListView):
     model = Category
     context_object_name = "categories"
 
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(posts=Post.objects.select_related("photo"), **kwargs)
+
 
 class CategoryDetailView(PostListView):
     def dispatch(self, request, *args, **kwargs):
@@ -71,7 +75,7 @@ class CategoryDetailView(PostListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.category.posts.all()
+        return super().get_queryset().filter(categories=self.category)
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(category=self.category, **kwargs)

@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Category, Comment, Post
+from .models import Category, Comment, Post, PostPhoto
 
 
 def url(name, pk=None):
@@ -75,3 +75,18 @@ class BlogTests(TestCase):
         self.assertContains(response, self.post.title)
         self.assertNotContains(response, self.other.title)
         self.assertContains(self.client.get(self.post.get_absolute_url()), url("category_detail", self.category.pk))
+
+    def test_navigation_uses_the_same_posts_and_photos(self):
+        photo = PostPhoto.objects.create(post=self.post, url="https://example.com/civic.jpg", credit="Fotógrafo")
+
+        for view_name in ("post_list", "selection", "about", "category_list"):
+            with self.subTest(view=view_name):
+                response = self.client.get(url(view_name))
+                self.assertContains(response, self.post.get_absolute_url())
+                self.assertContains(response, self.other.get_absolute_url())
+                self.assertContains(response, photo.url, count=1)
+
+        self.assertContains(self.client.get(self.post.get_absolute_url()), photo.url, count=1)
+        category = self.client.get(url("category_detail", self.category.pk))
+        self.assertContains(category, photo.url, count=1)
+        self.assertNotContains(category, self.other.get_absolute_url())

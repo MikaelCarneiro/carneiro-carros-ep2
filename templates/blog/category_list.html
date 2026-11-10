@@ -10,4 +10,8 @@
 {% empty %}
   <p class="panel">Ainda não há categorias.</p>
 {% endfor %}
+<section aria-labelledby="todos-carros">
+  <h2 id="todos-carros">Todos os carros</h2>
+  {% include "blog/post_cards.html" %}
+</section>
 {% endblock %}
